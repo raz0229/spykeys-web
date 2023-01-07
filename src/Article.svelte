@@ -1,6 +1,9 @@
 <script>
 	export let article;
 	export let statusBuffer;
+	export let apiInp;
+
+	import CryptoJS from 'crypto-js';
 	let status;
 
 	const dateSeparator = (time) => {
@@ -21,6 +24,7 @@
 		statusBuffer.add(status);
 		return status;
 	};
+
 </script>
 
 {#if !statusBuffer.has(dateSeparator(article.timestamp))}
@@ -33,7 +37,7 @@
 			language
 		</span>ㅤ&zwnj;&zwnj; {article.domain}
 	</div>
-	<div class="text">{article.text}</div>
+	<div class="text">{CryptoJS.AES.decrypt(article.text, apiInp).toString(CryptoJS.enc.Utf8)}</div>
 	<div class="timestamp">
 		{new Date(article.timestamp * 1000).toString().substring(4, 24)}
 	</div>

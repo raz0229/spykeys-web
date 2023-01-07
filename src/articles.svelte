@@ -6,6 +6,7 @@
 	export let statusBuffer = new Set();
 	export let contentLength;
 	export let temp_articles;
+	export let apiInp;
 
 	const filterDomain = (e, inp) => {
 		if (e.keyCode == 8) articles = temp_articles;
@@ -54,7 +55,7 @@
 		{#if i < contentLength}
 			<ul>
 				<li>
-					<Article {article} {contentLength} {statusBuffer} />
+					<Article {article} {contentLength} {statusBuffer} {apiInp} />
 				</li>
 			</ul>
 		{/if}

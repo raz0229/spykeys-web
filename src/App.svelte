@@ -4,8 +4,8 @@
 	const key = urlParams.get("apiKey");
   
 	let articles;
-	let apiMatched = false,
-	apiInp = key;
+	let apiMatched = false;
+	export let apiInp = key;
 	export let contentLength = 10;
 	let temp_articles;
   
@@ -31,7 +31,7 @@
 	  if (!(apiInp.trim().length == 0)) {
 		apiMatched = true;
   
-		await fetch("https://api-spykeys.herokuapp.com/", { //
+		await fetch("https://api-spykeys.vercel.app/", { //
 		  method: "GET",
 		  mode: "cors",
 		  cache: "no-cache",
@@ -66,7 +66,15 @@
 			  },
 			];
 		  }
-		});
+		}).catch(e => {
+			articles = [
+			  {
+				domain: "404 (Not Found)",
+				text: "CORS Error.",
+				timestamp: `${new Date().getTime().toString().substring(0, 10)}`,
+			  },
+			];
+		}); 
 	  }
 	};
 	
@@ -78,7 +86,7 @@
 	  <div class="nav-wrapper container">
 		<a
 		  id="logo-container"
-		  href="https://spykeys.herokuapp.com"
+		  href="https://spykeys.vercel.app"
 		  class="brand-logo"
 		  ><i class="material-icons" style="font-size: larger;">visibility</i> Spy
 		  Keys</a
@@ -150,7 +158,7 @@
 		  <!--   Icon Section   -->
 		  <div class="col striped">
 			<main>
-			  <Articles {articles} {contentLength} {temp_articles} />
+			  <Articles {articles} {contentLength} {temp_articles} {apiInp} />
 			</main>
 		  </div>
 		</div>
